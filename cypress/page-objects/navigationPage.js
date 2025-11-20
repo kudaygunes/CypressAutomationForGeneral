@@ -1,36 +1,52 @@
+
+// Helper: Ensures a side-menu group is expanded before selecting an item inside it.
+// Parameter: `groupItemName` - the visible text of the group anchor to find (e.g. 'Forms', 'Modal & Overlays')
+function selectGroupMenuItem(groupItemName){
+    // Find an anchor (<a>) that contains the provided group text and read its `aria-expanded` attribute
+    // `invoke('attr', 'aria-expanded')` returns a string like 'true' or 'false'
+    cy.contains('a', groupItemName).invoke('attr', 'aria-expanded').then(attr => {
+        // If the anchor reports it is not expanded (contains 'false'), click it to expand the group
+        // Using includes() is tolerant of string formats; the intent is to click only when collapsed
+        if(attr.includes('false')){
+            cy.contains('a', groupItemName).click()
+        }
+        // If already expanded, do nothing — the function simply guarantees the group is open
+    })
+}
+
 class NavigationPage{
     formLayoutsPage(){
-        cy.contains('Forms').click()
+        selectGroupMenuItem('Forms')
         cy.contains('Form Layouts').click()
     }
 
     datepickerPage(){
-        cy.contains('Forms').click()
+        selectGroupMenuItem('Forms')
         cy.contains('Datepicker').click()
     }
 
     dialogPage(){
-        cy.contains('Modal & Overlays').click()
+        selectGroupMenuItem('Modal & Overlays')
         cy.contains('Dialog').click()
     }
 
     toastrPage(){
-        cy.contains('Modal & Overlays').click()
+        selectGroupMenuItem('Modal & Overlays')
         cy.contains('Toastr').click()
     }
 
     tooltipPage(){
-        cy.contains('Modal & Overlays').click()
+        selectGroupMenuItem('Modal & Overlays')
         cy.contains('Tooltip').click()
     }
 
     smartTablePage(){
-        cy.contains('Tables & Data').click()
+        selectGroupMenuItem('Tables & Data')
         cy.contains('Smart Table').click()
     }
 
     dragAndDropPage(){
-        cy.contains('Extra Components').click()
+        selectGroupMenuItem('Extra Components')
         cy.contains('Drag & Drop').click()
     }
 }
