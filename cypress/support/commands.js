@@ -25,3 +25,8 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 import 'cypress-iframe';
+
+// Custom command to open the home page
+Cypress.Commands.add('openHomePage', (email, password) =>{
+    cy.visit('/')
+})

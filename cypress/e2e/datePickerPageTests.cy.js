@@ -1,9 +1,11 @@
 /// <reference types="cypress" />
 
 import { navigateTo } from "../page-objects/navigationPage"
+import { onDatepickerPage } from "../page-objects/datePickerPage"
 
 beforeEach('Open test application', () => {
         cy.visit('/')
+        //cy.openHomePage()
 })
 
 it.only('datepickers', () => {
@@ -67,4 +69,15 @@ it.only('datepickers', () => {
         // Verify the input field now contains the selected date value
         cy.wrap(input).should('have.value', dateAssert)
     })
+})
+
+it.only('parameterized datepicker', () => {
+    // Navigate to Forms section and Datepicker page
+    navigateTo.datepickerPage()
+    
+    // Use the page object method to select a date 70 days from today on the common datepicker
+    onDatepickerPage.selectCommonDatepickerDateFromToday(70)
+    
+    // Use the page object method to select a date range starting 7 days from today and ending 12 days from today
+    onDatepickerPage.selectRangeDatepickerFromToday(7, 12)
 })

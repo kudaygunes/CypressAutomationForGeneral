@@ -1,4 +1,5 @@
 import { navigateTo } from "../page-objects/navigationPage"
+import { onFormLayoutsPage } from "../page-objects/formLayoutsPage"
 
 beforeEach('Open test application', () => {
         cy.visit('/')
@@ -45,13 +46,17 @@ it.only('input fields', () => {
 
     // Verify the email input is empty, clear it, type 'deranzo huşevni', and press the TAB key to move to the next field
     cy.get('#inputEmail1').should('not.have.value', '').clear().type('deranzo huşevni').press(Cypress.Keyboard.Keys.TAB)
+})
 
-
-    /*
-    cy.contains('Auth').click()
-    cy.contains('Login').click()
-
-    cy.get('#input-email').type('deranzo@muebbetmuhabbet.com')
-    cy.get('#input-password').type('deranzo123{enter}')
-    */
+it.only('paramaterized login', () => {
+    // Navigate to Forms section and Form Layouts page
+    navigateTo.formLayoutsPage()
+    
+    // Use the page object method to submit the 'Using the Grid' form with provided credentials and option index
+    // Parameters: email, password, optionIndex (0 = first radio button option)
+    onFormLayoutsPage.submitUsingTheGridForm('mulayimsert@protonmail.com', 'Mulayimsert123', 0)
+    
+    // Use the page object method to submit the 'Basic form' with provided credentials and checkbox selection
+    // Parameters: email, password, isCheckboxSelected (true = check the checkbox)
+    onFormLayoutsPage.submitBasicForm('mulayimsert@protonmail.com', 'Mulayimsert123', true)
 })
